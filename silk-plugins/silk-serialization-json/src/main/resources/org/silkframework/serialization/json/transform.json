@@ -1,0 +1,103 @@
+{
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/directMapping" }
+  ],
+  "definitions": {
+    "metadata": {
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "mappingTarget": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "valueType": {
+          "type": "object",
+          "properties": {
+            "nodeType": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "isBackwardProperty": {
+          "type": "boolean"
+        }
+
+      },
+      "additionalProperties": false
+    },
+    "rules": {
+      "properties": {
+        "uriRule": {
+          "oneOf": [
+            { "$ref": "#/definitions/uriMapping" },
+            { "$ref": "#/definitions/complexUriMapping" }
+          ]
+        },
+        "typeRules": {
+        },
+        "propertyRules": {
+
+        }
+      },
+      "additionalProperties": false
+    },
+    "rootMapping": {
+      "properties": {
+        "type": {
+          "const": "root"
+        },
+        "id": {
+          "type": "string"
+        },
+        "rules": {
+          "$ref": "#/definitions/rules"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metadata"
+        }
+      },
+      "required": [
+        "type",
+        "rules"
+      ],
+      "additionalProperties": false
+    },
+    "directMapping": {
+      "properties": {
+        "type": {
+          "const": "direct"
+        },
+        "id": {
+          "type": "string"
+        },
+        "sourcePath": {
+          "type": "string"
+        },
+        "mappingTarget": {
+          "$ref": "#/definitions/mappingTarget"
+        },
+        "metadata": {
+          "$ref": "#/definitions/metadata"
+        }
+      },
+      "required": [
+        "type",
+        "sourcePath",
+        "mappingTarget"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
